@@ -1,0 +1,8 @@
+/* StudySphere global CSS file - Custom styling is injected directly from App.jsx */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
