@@ -345,7 +345,7 @@ button { cursor: pointer; border: none; outline: none; background: transparent; 
 .modal-close:hover { background: var(--border); color: var(--text); }
 
 /* ── ANIMS ── */
-@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp { from { opacity: 0; } to { opacity: 1; } }
 .fade { animation: fadeUp .3s ease forwards; }
 @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
 .pulsing { animation: blink 1.4s infinite; }
