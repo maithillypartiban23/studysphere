@@ -139,22 +139,22 @@ p, span, div, h1, h2, h3, h4, h5, h6 { word-break: break-word; overflow-wrap: br
   --bg: #090d16;
   --surface: #131b2e;
   --surface2: #1e293b;
-  --border: #334155;
+  --border: #2e3a52;
   --border2: #475569;
   --text: #f8fafc;
   --text2: #cbd5e1;
-  --text3: #64748b;
-  --purple: #a78bfa;
-  --purple-soft: #2e1f4d;
-  --purple-ring: #6d28d9;
+  --text3: #94a3b8;
+  --purple: #c084fc;
+  --purple-soft: rgba(167, 139, 250, 0.12);
+  --purple-ring: #a855f7;
   --orange: #fb923c;
-  --orange-soft: #431a04;
+  --orange-soft: rgba(251, 146, 60, 0.12);
   --teal: #38bdf8;
-  --teal-soft: #083344;
+  --teal-soft: rgba(56, 189, 248, 0.12);
   --green: #34d399;
-  --green-soft: #064e3b;
+  --green-soft: rgba(52, 211, 153, 0.12);
   --pink: #f472b6;
-  --pink-soft: #500730;
+  --pink-soft: rgba(244, 114, 182, 0.12);
   --shadow-sm: 0 1px 3px rgba(0,0,0,.3);
   --shadow: 0 4px 12px rgba(0,0,0,.3);
   --shadow-lg: 0 16px 48px rgba(0,0,0,.5);
@@ -291,7 +291,7 @@ button { cursor: pointer; border: none; outline: none; background: transparent; 
 .disc-reply { background: var(--surface2); padding: 12px 14px; margin-top: 10px; border-radius: var(--r); border-left: 4px solid var(--purple-ring); }
 
 /* ── AI CHAT ── */
-.ai-msgs { display: flex; flex-direction: column; gap: 10px; height: 260px; overflow-y: auto; background: var(--surface2); border-radius: var(--r); padding: 14px; margin-bottom: 10px; border: 1px solid var(--border); }
+.ai-msgs { display: flex; flex-direction: column; gap: 10px; flex: 1; min-height: 0; overflow-y: auto; background: var(--surface2); border-radius: var(--r); padding: 14px; margin-bottom: 10px; border: 1px solid var(--border); }
 .ai-bubble { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; border-top-left-radius: 3px; padding: 10px 14px; font-size: 13px; line-height: 1.6; max-width: 85%; color: var(--text); box-shadow: var(--shadow-sm); }
 .ai-bubble pre { background: var(--surface2); color: var(--purple); font-family: 'Spline Sans Mono', monospace; font-size: 11.5px; padding: 8px; border-radius: 6px; margin-top: 6px; overflow-x: auto; border: 1px solid var(--border); }
 .user-bubble { background: linear-gradient(135deg, #7c3aed, #6d28d9); border-radius: 14px; border-bottom-right-radius: 3px; padding: 10px 14px; font-size: 13px; color: #fff; line-height: 1.6; max-width: 85%; margin-left: auto; box-shadow: var(--shadow-sm); }
@@ -495,6 +495,7 @@ button { cursor: pointer; border: none; outline: none; background: transparent; 
   position: absolute;
   inset: 0;
   background: radial-gradient(circle at top right, rgba(255,255,255,0.2), transparent 70%);
+  pointer-events: none;
 }
 
 .prof-avatar-wrap {
@@ -574,6 +575,62 @@ button { cursor: pointer; border: none; outline: none; background: transparent; 
   border-color: var(--border2);
   box-shadow: var(--shadow-sm);
   background: var(--surface);
+}
+
+.prof-metric-card {
+  background: linear-gradient(135deg, var(--surface2) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border: 1.5px solid var(--border);
+  padding: 16px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s ease;
+}
+
+.prof-metric-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--purple-ring);
+  box-shadow: var(--shadow);
+  background: var(--surface2);
+}
+
+.dark-mode .prof-metric-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark-mode .prof-metric-card:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: var(--purple);
+}
+
+.prof-pref-chip {
+  background: linear-gradient(135deg, var(--purple-soft), #fff1f2);
+  border: 1.5px solid var(--border);
+  color: var(--purple);
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s;
+}
+
+.prof-pref-chip:hover {
+  transform: scale(1.03);
+}
+
+.dark-mode .prof-pref-chip {
+  background: rgba(192, 132, 252, 0.15);
+  border-color: rgba(192, 132, 252, 0.35);
+  color: #e9d5ff;
+}
+
+.dark-mode .prof-pref-chip:hover {
+  background: rgba(192, 132, 252, 0.25);
+  border-color: rgba(192, 132, 252, 0.5);
 }
 
 @media (max-width: 768px) {
@@ -1045,9 +1102,6 @@ function StudyRoom({ session, user, onLeave }) {
           </button>
           <button className={`meet-btn ${!cameraOn ? "off" : ""}`} onClick={() => setCameraOn(!cameraOn)} title={cameraOn ? "Turn Camera Off" : "Turn Camera On"}>
             {cameraOn ? "📷" : "🚫"}
-          </button>
-          <button className={`meet-btn ${screenSharing ? "on" : ""}`} style={screenSharing ? { background: "var(--purple)" } : {}} onClick={() => setScreenSharing(!screenSharing)} title="Share Screen">
-            🖥️
           </button>
           <button className="meet-btn meet-btn-leave" onClick={() => {
             if (localStream) localStream.getTracks().forEach(t => t.stop());
@@ -1618,10 +1672,10 @@ What specific topic would you like to review or brainstorm today?`;
         ))}
       </div>
 
-      <div>
+      <div style={{ height: "calc(100vh - 120px)", position: "sticky", top: 16 }}>
         {/* Study Assistant */}
-        <div className="card mb3" style={{ position: "sticky", top: 16 }}>
-          <div className="card-hd">🤖 Study Assistant</div>
+        <div className="card mb3" style={{ height: "100%", display: "flex", flexDirection: "column", boxSizing: "border-box" }}>
+          <div className="card-hd" style={{ marginBottom: 12 }}>🤖 Study Assistant</div>
           <div className="ai-msgs">
             {aiChat.map(m => (
               <div key={m.id} className={m.sender === "user" ? "user-bubble" : "ai-bubble"}>
@@ -1638,7 +1692,7 @@ What specific topic would you like to review or brainstorm today?`;
             )}
             <div ref={msgsEndRef} />
           </div>
-          <form onSubmit={sendAiMessage} className="flex gap2">
+          <form onSubmit={sendAiMessage} className="flex gap2" style={{ marginTop: 8 }}>
             <input className="inp fs12" placeholder="Ask details (e.g. 3NF, OOP)..." value={aiInput} onChange={e => setAiInput(e.target.value)} disabled={isTyping} />
             <button className="btn btn-sm btn-primary" type="submit" disabled={isTyping}>→</button>
           </form>
@@ -1948,7 +2002,7 @@ function Profile({ user, setUser }) {
           <div className="prof-avatar-wrap">
             <Av initials={user.av} size={92} bg="var(--purple-soft)" fg="var(--purple)" />
           </div>
-          <button className="btn btn-sm" style={{ position: "absolute", top: 20, right: 20, background: "rgba(255, 255, 255, 0.25)", backdropFilter: "blur(12px)", color: "#fff", borderColor: "rgba(255, 255, 255, 0.4)", display: "flex", alignItems: "center", gap: 6, fontWeight: 700 }} onClick={() => setIsEditOpen(true)}>✏️ Edit Profile</button>
+          <button className="btn btn-sm" style={{ position: "absolute", top: 20, right: 20, background: "rgba(255, 255, 255, 0.25)", backdropFilter: "blur(12px)", color: "#fff", borderColor: "rgba(255, 255, 255, 0.4)", display: "flex", alignItems: "center", gap: 6, fontWeight: 700, zIndex: 12 }} onClick={() => setIsEditOpen(true)}>✏️ Edit Profile</button>
         </div>
 
         <div className="prof-body-area">
@@ -1969,7 +2023,7 @@ function Profile({ user, setUser }) {
             {user.preferences && (
               <div className="chip-row mt3" style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                 {user.preferences.split(",").map(pref => (
-                  <span key={pref} className="chip" style={{ background: "linear-gradient(135deg, var(--purple-soft), #fff1f2)", border: "1.5px solid var(--border)", color: "var(--purple)", fontWeight: 700, padding: "5px 12px", borderRadius: 99, fontSize: 10.5, textTransform: "none", letterSpacing: "normal" }}>🎯 {pref.trim()}</span>
+                  <span key={pref} className="prof-pref-chip">🎯 {pref.trim()}</span>
                 ))}
               </div>
             )}
@@ -1977,11 +2031,11 @@ function Profile({ user, setUser }) {
 
           {/* Spherics Metrics strip inside the header */}
           <div className="prof-metrics-grid">
-            <div style={{ background: "linear-gradient(135deg, var(--surface2) 0%, rgba(255,255,255,0.4) 100%)", border: "1.5px solid var(--border)", padding: "16px", borderRadius: 16, textAlign: "center", boxShadow: "var(--shadow-sm)" }}>
+            <div className="prof-metric-card">
               <div className="fw8 fs26" style={{ color: "var(--purple)", lineHeight: 1.1 }}>47</div>
               <div className="dim fs10 mt2" style={{ fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" }}>Reputation Points</div>
             </div>
-            <div style={{ background: "linear-gradient(135deg, var(--surface2) 0%, rgba(255,255,255,0.4) 100%)", border: "1.5px solid var(--border)", padding: "16px", borderRadius: 16, textAlign: "center", boxShadow: "var(--shadow-sm)" }}>
+            <div className="prof-metric-card">
               <div className="fw8 fs26" style={{ color: "var(--orange)", lineHeight: 1.1 }}>{user.sharedCount || 12}</div>
               <div className="dim fs10 mt2" style={{ fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" }}>Materials Shared</div>
             </div>
