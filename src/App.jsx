@@ -291,7 +291,7 @@ button { cursor: pointer; border: none; outline: none; background: transparent; 
 .disc-reply { background: var(--surface2); padding: 12px 14px; margin-top: 10px; border-radius: var(--r); border-left: 4px solid var(--purple-ring); }
 
 /* ── AI CHAT ── */
-.ai-msgs { display: flex; flex-direction: column; gap: 10px; flex: 1; min-height: 0; overflow-y: auto; background: var(--surface2); border-radius: var(--r); padding: 14px; margin-bottom: 10px; border: 1px solid var(--border); }
+.ai-msgs { display: flex; flex-direction: column; gap: 10px; height: 450px; overflow-y: auto; background: var(--surface2); border-radius: var(--r); padding: 14px; margin-bottom: 10px; border: 1px solid var(--border); }
 .ai-bubble { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; border-top-left-radius: 3px; padding: 10px 14px; font-size: 13px; line-height: 1.6; max-width: 85%; color: var(--text); box-shadow: var(--shadow-sm); }
 .ai-bubble pre { background: var(--surface2); color: var(--purple); font-family: 'Spline Sans Mono', monospace; font-size: 11.5px; padding: 8px; border-radius: 6px; margin-top: 6px; overflow-x: auto; border: 1px solid var(--border); }
 .user-bubble { background: linear-gradient(135deg, #7c3aed, #6d28d9); border-radius: 14px; border-bottom-right-radius: 3px; padding: 10px 14px; font-size: 13px; color: #fff; line-height: 1.6; max-width: 85%; margin-left: auto; box-shadow: var(--shadow-sm); }
@@ -338,7 +338,7 @@ button { cursor: pointer; border: none; outline: none; background: transparent; 
 .prog-fill { height: 6px; border-radius: 99px; transition: width 0.3s ease; }
 
 /* ── MODALS ── */
-.modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1000; animation: fadeIn 0.2s ease forwards; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); display: flex; align-items: flex-start; justify-content: center; padding: 40px 20px; overflow-y: auto; z-index: 1000; animation: fadeIn 0.2s ease forwards; }
 .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl); width: 100%; max-width: 500px; padding: 1.75rem; box-shadow: var(--shadow-lg); position: relative; animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 .modal-title { font-size: 20px; font-weight: 800; color: var(--text); letter-spacing: -0.4px; margin-bottom: 14px; }
 .modal-close { position: absolute; top: 18px; right: 18px; width: 30px; height: 30px; border-radius: 50%; background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; color: var(--text2); }
@@ -1672,10 +1672,10 @@ What specific topic would you like to review or brainstorm today?`;
         ))}
       </div>
 
-      <div style={{ height: "calc(100vh - 120px)", position: "sticky", top: 16 }}>
+      <div>
         {/* Study Assistant */}
-        <div className="card mb3" style={{ height: "100%", display: "flex", flexDirection: "column", boxSizing: "border-box" }}>
-          <div className="card-hd" style={{ marginBottom: 12 }}>🤖 Study Assistant</div>
+        <div className="card mb3" style={{ position: "sticky", top: 16 }}>
+          <div className="card-hd">🤖 Study Assistant</div>
           <div className="ai-msgs">
             {aiChat.map(m => (
               <div key={m.id} className={m.sender === "user" ? "user-bubble" : "ai-bubble"}>
@@ -1692,7 +1692,7 @@ What specific topic would you like to review or brainstorm today?`;
             )}
             <div ref={msgsEndRef} />
           </div>
-          <form onSubmit={sendAiMessage} className="flex gap2" style={{ marginTop: 8 }}>
+          <form onSubmit={sendAiMessage} className="flex gap2">
             <input className="inp fs12" placeholder="Ask details (e.g. 3NF, OOP)..." value={aiInput} onChange={e => setAiInput(e.target.value)} disabled={isTyping} />
             <button className="btn btn-sm btn-primary" type="submit" disabled={isTyping}>→</button>
           </form>
